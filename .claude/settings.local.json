@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Asimov\\\\Portfolio\" -Recurse -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(ls \"C:\\\\Users\\\\Admin\\\\Desktop\" | grep -i \"logo\\\\|affinity\\\\|canva\\\\|capcut\\\\|claude\\\\|davinci\\\\|antigravity\")",
+      "Bash(ls \"C:\\\\Users\\\\Admin\\\\Downloads\" | grep -i \"logo\\\\|affinity\\\\|canva\\\\|capcut\\\\|claude\\\\|davinci\\\\|antigravity\")",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Asimov\\\\Portfolio\")",
+      "Bash(Select-Object Name)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Asimov\\\\Portfolio\" -Force | ForEach-Object { $_.FullName })",
+      "PowerShell(\\(Get-Item \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Portfolio\"\\).Target)",
+      "Bash(capcut)",
+      "Bash(affinity)",
+      "Bash(canva\" -i)",
+      "Bash(Get-ChildItem -Recurse -File)",
+      "Bash(Select-Object -First 30)",
+      "Bash(Format-Table Name, FullName)",
+      "Bash(git ls-tree *)",
+      "Bash(grep -E \"\\\\.\\(html|css|js|jsx|tsx\\)$\")"
+    ]
+  }
+}
