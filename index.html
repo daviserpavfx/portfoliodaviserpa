@@ -5,12 +5,8 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>Portfolio</title>
 
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="vendor/fonts/assets/css2_2832c0ff631d.css" rel="stylesheet"/>
-    <script src="vendor/fonts/assets/resource_3fa48481346f.js"></script>
     <script src="vendor/gsap/assets/gsap_4f0dc5b47bd1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
     <style>
         html, body {
@@ -18,6 +14,7 @@
             padding: 0;
             background: #030303;
             overflow-x: hidden;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
         /* ─── NAV ─────────────────────────────────────────────── */
@@ -97,6 +94,10 @@
             color: rgba(255, 255, 255, 0.92);
         }
 
+        .relative {
+            position: relative;
+        }
+
         /* ─── HERO ────────────────────────────────────────────── */
         #hero {
             position: relative;
@@ -150,6 +151,26 @@
             display: block;
             padding-bottom: 0.22em;
             margin-bottom: -0.22em;
+        }
+
+        .hero-title {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 6rem;
+            }
         }
 
         .hero-line-1 {
@@ -666,6 +687,10 @@
         .ai-image-panel img {
             width: 100%;
             height: auto;
+            display: block;
+        }
+
+        .ai-image-panel picture {
             display: block;
         }
 
@@ -1279,7 +1304,7 @@
 
         <!-- Vídeo traseiro -->
         <div class="video-wrap" style="z-index:0;">
-            <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.jpg" aria-hidden="true"
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg" aria-hidden="true"
                 style="opacity:0.70; filter:saturate(0.4);">
                 <source src="assets/videos/hero.mp4" type="video/mp4">
             </video>
@@ -1293,7 +1318,7 @@
     <!-- Conteúdo -->
     <div class="relative" style="z-index:2; transform: translateY(-0.4em);">
         <span class="hero-eyebrow">SaaS, Short/Long-Form &amp; AI</span>
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]">
+        <h1 class="hero-title">
             <span class="hero-line hero-line-1">Elevating</span>
             <span class="hero-line hero-line-2">Motion & Depth.</span>
         </h1>
@@ -1307,7 +1332,7 @@
     </a>
 
     <!-- Assinatura: img direto, sem canvas, funciona em file:// -->
-    <video id="sig-img" muted playsinline preload="auto"
+    <video id="sig-img" muted playsinline preload="metadata"
            style="position:absolute; pointer-events:none; z-index:2;
                   left:calc(50% + 22px); transform:translateX(-50%); top:60%;
                   width:clamp(60px,7.5vw,105px); height:auto;
@@ -1319,7 +1344,7 @@
 
     <!-- Vídeo frontal — anel -->
     <div class="video-wrap" style="z-index:3;">
-        <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.jpg" aria-hidden="true"
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg" aria-hidden="true"
             style="opacity:0.70;
                    filter:saturate(0.4);
                    -webkit-mask-image:radial-gradient(ellipse 42% 36% at 50% 48%, transparent 0%, transparent 78%, black 96%);
@@ -1675,7 +1700,10 @@
         <div class="ai-layout">
 
             <div class="ai-image-panel">
-                <img src="assets/images/ai-generated.png" alt="AI Generated">
+                <picture>
+                    <source srcset="assets/images/ai-generated.webp" type="image/webp">
+                    <img src="assets/images/ai-generated.png" alt="AI Generated" loading="lazy" decoding="async">
+                </picture>
             </div>
 
             <div class="ai-text-panel">
@@ -1868,21 +1896,41 @@
     }, 2.26);
 
     /* ── Smooth scroll (Lenis + GSAP ticker) ─────────────────── */
-    const lenis = new Lenis({
-        duration: 1.3,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-    window.__lenis = lenis;
-    gsap.ticker.add(time => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+    function initLenis() {
+        if (!window.Lenis || window.__lenis) return;
+        const lenis = new Lenis({
+            duration: 1.3,
+            easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        window.__lenis = lenis;
+        gsap.ticker.add(time => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+    }
+
+    window.addEventListener('load', () => {
+        const loadLenis = () => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js';
+            script.async = true;
+            script.onload = initLenis;
+            document.head.appendChild(script);
+        };
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadLenis, { timeout: 1800 });
+        } else {
+            setTimeout(loadLenis, 1200);
+        }
+    }, { once: true });
 </script>
 
 <script>
 (function () {
     const canvas = document.getElementById('stars-bg');
     const ctx    = canvas.getContext('2d');
-    const COUNT  = 320;
+    const COUNT  = window.innerWidth < 768 ? 150 : 240;
     const stars  = [];
+    let lastDraw = 0;
 
     function resize() {
         canvas.width  = window.innerWidth;
@@ -1906,6 +1954,12 @@
     }
 
     function draw(t) {
+        if (document.hidden || t - lastDraw < 33) {
+            requestAnimationFrame(draw);
+            return;
+        }
+        lastDraw = t;
+
         const scrollY = window.__lenis?.scroll ?? window.scrollY ?? 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (const s of stars) {
