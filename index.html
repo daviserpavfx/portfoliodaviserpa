@@ -844,6 +844,11 @@
             display: block;
         }
 
+        .vv-youtube {
+            border: 0;
+            background: #000;
+        }
+
         .wv-play-btn {
             position: absolute;
             top: 50%;
@@ -1265,7 +1270,7 @@
 
         <!-- Vídeo traseiro -->
         <div class="video-wrap" style="z-index:0;">
-            <video autoplay muted loop playsinline
+            <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.jpg" aria-hidden="true"
                 style="opacity:0.70; filter:saturate(0.4);">
                 <source src="assets/videos/hero.mp4" type="video/mp4">
             </video>
@@ -1305,7 +1310,7 @@
 
     <!-- Vídeo frontal — anel -->
     <div class="video-wrap" style="z-index:3;">
-        <video autoplay muted loop playsinline
+        <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.jpg" aria-hidden="true"
             style="opacity:0.70;
                    filter:saturate(0.4);
                    -webkit-mask-image:radial-gradient(ellipse 42% 36% at 50% 48%, transparent 0%, transparent 78%, black 96%);
@@ -1404,6 +1409,12 @@
                 </div>
                 <span class="ticker-name">Claude</span>
             </div>
+            <div class="ticker-item ticker-desktop-only">
+                <div class="ticker-logo" style="background:#05070d;border-color:rgba(124,92,255,0.36)">
+                    <img src="assets/images/logos/codex.svg" alt="Codex">
+                </div>
+                <span class="ticker-name">Codex</span>
+            </div>
             <!-- set B (clone para loop contínuo) -->
             <div class="ticker-item">
                 <div class="ticker-logo" style="background:#1c1c1c;border-color:rgba(255,255,255,0.13)">
@@ -1459,6 +1470,12 @@
                 </div>
                 <span class="ticker-name">Claude</span>
             </div>
+            <div class="ticker-item ticker-desktop-only">
+                <div class="ticker-logo" style="background:#05070d;border-color:rgba(124,92,255,0.36)">
+                    <img src="assets/images/logos/codex.svg" alt="Codex">
+                </div>
+                <span class="ticker-name">Codex</span>
+            </div>
         </div>
     </div>
 
@@ -1490,6 +1507,12 @@
                 </div>
                 <span class="ticker-name">Claude</span>
             </div>
+            <div class="ticker-item">
+                <div class="ticker-logo" style="background:#05070d;border-color:rgba(124,92,255,0.36)">
+                    <img src="assets/images/logos/codex.svg" alt="Codex">
+                </div>
+                <span class="ticker-name">Codex</span>
+            </div>
             <!-- set B (clone) -->
             <div class="ticker-item">
                 <div class="ticker-logo" style="background:#0a0a0a;border-color:rgba(255,255,255,0.14)">
@@ -1514,6 +1537,12 @@
                     <img src="assets/images/logos/claude.jpg" alt="Claude">
                 </div>
                 <span class="ticker-name">Claude</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-logo" style="background:#05070d;border-color:rgba(124,92,255,0.36)">
+                    <img src="assets/images/logos/codex.svg" alt="Codex">
+                </div>
+                <span class="ticker-name">Codex</span>
             </div>
         </div>
     </div>
@@ -1554,24 +1583,24 @@
         <div class="work-layout">
 
             <div class="work-col-main">
-                <div class="work-vid-land wv-panel">
+                <div class="work-vid-land wv-panel" data-youtube-id="W7xAOvjE940">
                     <div class="wv-bg"></div>
-                    <video class="wv-video" src="assets/videos/work-ready.mp4" preload="metadata" playsinline></video>
+                    <img class="wv-video" src="assets/images/posters/work-ready.jpg" alt="Work Ready video thumbnail">
                     <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                     <span class="wv-tag">16 : 9</span>
                 </div>
             </div>
 
-            <div class="work-vid-port wv-panel">
+            <div class="work-vid-port wv-panel" data-youtube-id="vHdCmT81cS8">
                 <div class="wv-bg"></div>
-                <video class="wv-video" src="assets/videos/work-nlg-1.mp4" preload="metadata" playsinline></video>
+                <img class="wv-video" src="assets/images/posters/work-nlg-1.jpg" alt="Work NLG 1 video thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">9 : 16</span>
             </div>
 
-            <div class="work-vid-port wv-panel">
+            <div class="work-vid-port wv-panel" data-youtube-id="_NRhuaVEVBY">
                 <div class="wv-bg"></div>
-                <video class="wv-video" src="assets/videos/work-nlg-2.mp4" preload="metadata" playsinline></video>
+                <img class="wv-video" src="assets/images/posters/work-nlg-2.jpg" alt="Work NLG 2 video thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">9 : 16</span>
             </div>
@@ -1623,6 +1652,9 @@
                     </div>
                     <div class="work-icon" style="background:#1C0C07;border-color:rgba(217,119,87,0.35)">
                         <img src="assets/images/logos/claude.jpg" alt="Claude">
+                    </div>
+                    <div class="work-icon" style="background:#05070d;border-color:rgba(124,92,255,0.36)">
+                        <img src="assets/images/logos/codex.svg" alt="Codex">
                     </div>
                 </div>
             </div>
@@ -2073,7 +2105,8 @@
 
         const rect       = panel.getBoundingClientRect();
         const isPortrait = panel.classList.contains('work-vid-port');
-        const srcVideo   = panel.querySelector('.wv-video');
+        const srcMedia   = panel.querySelector('.wv-video');
+        const youtubeId  = panel.dataset.youtubeId;
 
         /* clone visual */
         const clone = document.createElement('div');
@@ -2088,13 +2121,28 @@
         clone.querySelector('.wv-video')?.remove();
 
         /* vídeo dedicado para o clone — inserido após wv-bg */
-        const vid = document.createElement('video');
-        vid.className = 'wv-video';
-        vid.src = srcVideo?.src || '';
-        vid.playsinline = true;
-        vid.currentTime = srcVideo?.currentTime || 0;
         const bgEl = clone.querySelector('.wv-bg');
-        bgEl ? bgEl.after(vid) : clone.prepend(vid);
+        let player;
+
+        if (youtubeId) {
+            player = document.createElement('iframe');
+            player.className = 'wv-video vv-youtube';
+            player.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(youtubeId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+            player.title = 'Portfolio video';
+            player.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            player.allowFullscreen = true;
+        } else {
+            player = document.createElement('video');
+            player.className = 'wv-video';
+            player.src = srcMedia?.src || '';
+            player.playsinline = true;
+            player.playsInline = true;
+            player.preload = 'auto';
+            player.currentTime = srcMedia?.currentTime || 0;
+            player.play().catch(() => {});
+        }
+
+        bgEl ? bgEl.after(player) : clone.prepend(player);
 
         gsap.set(clone, {
             top: rect.top, left: rect.left,
@@ -2123,8 +2171,10 @@
             duration: 0.72,
             ease: 'expo.inOut',
             onComplete() {
-                vid.play().catch(() => {});
-                addControls(clone, vid, panel.classList.contains('work-vid-land'));
+                if (!youtubeId) {
+                    player.play().catch(() => {});
+                    addControls(clone, player, panel.classList.contains('work-vid-land'));
+                }
             },
         });
     }

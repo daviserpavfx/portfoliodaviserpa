@@ -1,3 +1,8 @@
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
+# Keep only heavy source/render files in Git LFS.
 *.mov filter=lfs diff=lfs merge=lfs -text
+assets/videos/work-*.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# Site-critical assets must be normal Git files so static hosting can serve them.
+assets/videos/hero.mp4 -filter -diff -merge -text
+assets/videos/signature.mp4 -filter -diff -merge -text
+assets/images/** -filter -diff -merge -text
