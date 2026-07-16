@@ -619,6 +619,42 @@
             color: rgba(255,255,255,0.28);
         }
 
+        .motion-sub { margin-top: 56px; }
+
+        .motion-sub-eyebrow {
+            display: block;
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 0.30em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.32);
+            margin-bottom: 10px;
+        }
+
+        .motion-sub-title {
+            font-size: clamp(18px, 2.2vw, 26px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin: 0 0 14px;
+            color: rgba(255,255,255,0.92);
+        }
+
+        .motion-sub-desc p {
+            font-size: clamp(12px, 0.95vw, 14px);
+            font-weight: 300;
+            line-height: 2;
+            color: rgba(255,255,255,0.42);
+            max-width: 620px;
+            margin: 0 0 22px;
+        }
+
+        .motion-instructive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
         /* ─── AI ────────────────────────────────────────────── */
         #ai {
             position: relative;
@@ -1262,6 +1298,10 @@
                 width: calc(50% - 6px);
             }
 
+            .motion-instructive-grid {
+                grid-template-columns: 1fr;
+            }
+
             #section-divider {
                 display: block !important;
                 margin-top: 16px !important;
@@ -1665,10 +1705,39 @@
             </div>
         </header>
 
-        <div class="work-vid-land">
-            <div class="wv-bg"></div>
-            <div class="motion-coming-soon">
-                <span>Coming Soon</span>
+        <div class="motion-sub">
+            <span class="motion-sub-eyebrow">Motion / Instructive</span>
+            <h3 class="motion-sub-title">Instructive</h3>
+            <div class="motion-sub-desc">
+                <p>Clear, purposeful motion design built for comprehension over spectacle. Restrained effects and a steady visual rhythm keep attention on the message, not the technique — refined enough to represent a brand, direct enough to teach. Suited for onboarding, tutorials and presentations where clarity is the deliverable.</p>
+            </div>
+            <div class="motion-instructive-grid">
+                <div class="work-vid-land wv-panel" data-youtube-id="RbVIPrEC5-4">
+                    <div class="wv-bg"></div>
+                    <img class="wv-video" src="https://img.youtube.com/vi/RbVIPrEC5-4/hqdefault.jpg" alt="Instructive motion video 1 thumbnail">
+                    <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                    <span class="wv-tag">16 : 9</span>
+                </div>
+                <div class="work-vid-land wv-panel" data-youtube-id="vQ8460rNZWg">
+                    <div class="wv-bg"></div>
+                    <img class="wv-video" src="https://img.youtube.com/vi/vQ8460rNZWg/hqdefault.jpg" alt="Instructive motion video 2 thumbnail">
+                    <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                    <span class="wv-tag">16 : 9</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="motion-sub">
+            <span class="motion-sub-eyebrow">Motion / Experience</span>
+            <h3 class="motion-sub-title">Experience</h3>
+            <div class="motion-sub-desc">
+                <p>Heavy-effect motion built to command a room. Layered simulations, elaborate transitions and a deliberately maximalist visual language exist to project positioning and credibility for the brand behind it. Suited for SaaS launches, product films and high-stakes pitch presentations.</p>
+            </div>
+            <div class="work-vid-land">
+                <div class="wv-bg"></div>
+                <div class="motion-coming-soon">
+                    <span>Coming Soon</span>
+                </div>
             </div>
         </div>
 
