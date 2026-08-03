@@ -650,9 +650,18 @@
         }
 
         .motion-instructive-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .motion-instructive-grid .work-vid-land,
+        .motion-instructive-grid .work-vid-port {
+            width: auto;
+            height: clamp(220px, 30vw, 380px);
+            flex: 0 0 auto;
         }
 
         /* ─── AI ────────────────────────────────────────────── */
@@ -1299,7 +1308,14 @@
             }
 
             .motion-instructive-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+
+            .motion-instructive-grid .work-vid-land,
+            .motion-instructive-grid .work-vid-port {
+                width: 100%;
+                max-width: 340px;
+                height: auto;
             }
 
             #section-divider {
@@ -1712,11 +1728,11 @@
                 <p>Clear, purposeful motion design built for comprehension over spectacle. Restrained effects and a steady visual rhythm keep attention on the message, not the technique — refined enough to represent a brand, direct enough to teach. Suited for onboarding, tutorials and presentations where clarity is the deliverable.</p>
             </div>
             <div class="motion-instructive-grid">
-                <div class="work-vid-land wv-panel" data-youtube-id="z3r4JGuz08I">
+                <div class="work-vid-port wv-panel">
                     <div class="wv-bg"></div>
-                    <img class="wv-video" src="https://img.youtube.com/vi/z3r4JGuz08I/hqdefault.jpg" alt="Instructive motion video 1 thumbnail">
+                    <video class="wv-video" src="assets/videos/halevora-app-video-1.mp4" poster="assets/images/posters/halevora-app-video-1.jpg" muted playsinline preload="none"></video>
                     <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
-                    <span class="wv-tag">16 : 9</span>
+                    <span class="wv-tag">9 : 16</span>
                 </div>
                 <div class="work-vid-land wv-panel" data-youtube-id="V64e7vzaweU">
                     <div class="wv-bg"></div>
