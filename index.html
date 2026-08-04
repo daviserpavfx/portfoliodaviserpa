@@ -96,6 +96,37 @@
             color: rgba(255, 255, 255, 0.92);
         }
 
+        /* Nav acompanha a troca de ambiente (espaço → cabine) */
+        #site-nav {
+            background: color-mix(in oklab,
+                rgba(255,255,255,0.055) calc((1 - var(--cab, 0)) * 100%), rgba(255,255,255,0.42));
+            border-color: color-mix(in oklab,
+                rgba(255,255,255,0.11) calc((1 - var(--cab, 0)) * 100%), rgba(21,34,48,0.14));
+        }
+
+        .nav-logo {
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.92) calc((1 - var(--cab, 0)) * 100%), rgba(11,18,26,0.92));
+        }
+
+        .nav-divider {
+            background: color-mix(in oklab,
+                rgba(255,255,255,0.14) calc((1 - var(--cab, 0)) * 100%), rgba(11,18,26,0.18));
+        }
+
+        /* Fade do hover via opacity: transicionar `color` impede a
+           atualização contínua do color-mix dirigido por --cab */
+        .nav-links a {
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.92) calc((1 - var(--cab, 0)) * 100%), rgba(11,18,26,0.92));
+            opacity: 0.57;
+            transition: opacity 0.22s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
         .relative {
             position: relative;
         }
@@ -255,6 +286,7 @@
         :root { --margin: clamp(80px, 15vw, 240px); }
 
         #about {
+            position: relative;
             box-sizing: border-box;
             padding: 40px 0 140px;
         }
@@ -648,11 +680,131 @@
             gap: 12px;
         }
 
+        /* Tokens que interpolam espaço → cabine conforme --cab.
+           Ficam no :root porque valem de #ai até o rodapé. */
+        :root {
+            --ink-strong: color-mix(in oklab,
+                #ffffff calc((1 - var(--cab, 0)) * 100%), #000000);
+            --ink-heading: color-mix(in oklab,
+                rgba(255,255,255,0.90) calc((1 - var(--cab, 0)) * 100%), rgba(0,0,0,0.94));
+            --ink-mid: color-mix(in oklab,
+                rgba(255,255,255,0.55) calc((1 - var(--cab, 0)) * 100%), rgba(0,0,0,0.76));
+            --ink-soft: color-mix(in oklab,
+                rgba(255,255,255,0.42) calc((1 - var(--cab, 0)) * 100%), rgba(0,0,0,0.72));
+            --ink-faint: color-mix(in oklab,
+                rgba(255,255,255,0.28) calc((1 - var(--cab, 0)) * 100%), rgba(0,0,0,0.76));
+            --panel-bg: color-mix(in oklab,
+                #080810 calc((1 - var(--cab, 0)) * 100%), rgba(255,255,255,0.76));
+            --panel-bd: color-mix(in oklab,
+                rgba(255,255,255,0.07) calc((1 - var(--cab, 0)) * 100%), rgba(22,38,56,0.16));
+            --panel-shadow: color-mix(in oklab,
+                rgba(0,0,0,0.72) calc((1 - var(--cab, 0)) * 100%), rgba(60,78,98,0.20));
+            --panel-inset: color-mix(in oklab,
+                rgba(255,255,255,0.05) calc((1 - var(--cab, 0)) * 100%), rgba(255,255,255,0.72));
+            --hover-tint: color-mix(in oklab,
+                rgba(255,255,255,0.03) calc((1 - var(--cab, 0)) * 100%), rgba(77,200,244,0.10));
+            --hover-bd: color-mix(in oklab,
+                rgba(255,255,255,0.18) calc((1 - var(--cab, 0)) * 100%), rgba(41,151,196,0.58));
+        }
+
         /* ─── AI ────────────────────────────────────────────── */
         #ai {
             position: relative;
-            padding: 100px 0 60px;
+            padding: 210px 0 190px;
             box-sizing: border-box;
+        }
+
+        #ai .work-title {
+            background-image: linear-gradient(to bottom,
+                var(--ink-strong) 0%, var(--ink-mid) 100%);
+        }
+
+        #ai .work-desc p,
+        #ai .ai-text-body,
+        #ai .wl-val {
+            color: var(--ink-soft);
+        }
+
+        #ai .ai-text-label,
+        #ai .wl-cat {
+            color: var(--ink-faint);
+        }
+
+        #ai .ai-workflow-heading {
+            color: var(--ink-strong);
+        }
+
+        #ai .ai-codex-credit {
+            color: var(--ink-mid);
+        }
+
+        #ai .work-icon {
+            box-shadow: 0 0 0 1px var(--panel-bd),
+                        0 6px 18px var(--panel-shadow);
+        }
+
+        /* Mídias da AI ficam planas — sem sombra projetada.
+           A transition também sai: animar box-shadow congelaria o
+           color-mix dirigido por --cab. */
+        #ai .work-vid-land {
+            box-shadow: inset 0 1px 0 var(--panel-inset);
+            transition: transform 0.55s cubic-bezier(.22,.68,0,1.2);
+        }
+
+        #ai .work-vid-land:hover {
+            box-shadow: inset 0 1px 0 var(--panel-inset);
+        }
+
+        /* Subseções da AI — mesmo padrão visual do Motion, cores da cabine */
+        #ai .motion-sub-eyebrow { color: var(--ink-faint); }
+        #ai .motion-sub-title   { color: var(--ink-heading); }
+        #ai .motion-sub-desc p  { color: var(--ink-soft); }
+
+        #ai .work-heading + .motion-sub { margin-top: 0; }
+
+        .ai-sub-head { margin-bottom: 24px; }
+
+        /* Nota à esquerda, centralizada contra a pilha de imagens */
+        .ai-flow-explain {
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) minmax(0, 2.3fr);
+            gap: 40px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .ai-flow-explain .ai-flow-note p {
+            margin: 0;
+            max-width: none;
+        }
+
+        .ai-flow-shots {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+        }
+
+        .ai-flow-shot {
+            margin: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--panel-bd);
+            background: var(--panel-bg);
+        }
+
+        .ai-flow-shot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .ai-flow-cap {
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            color: var(--ink-faint);
+            padding: 12px 16px 14px;
         }
 
         .ai-layout {
@@ -665,11 +817,11 @@
         .ai-text-panel {
             position: relative;
             border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.07);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.05),
-                0 28px 90px rgba(0,0,0,0.72);
-            background: #080810;
+            border: 1px solid var(--panel-bd);
+            box-shadow: inset 0 1px 0 var(--panel-inset);
+            background: var(--panel-bg);
+            backdrop-filter: blur(calc(var(--cab, 0) * 14px));
+            -webkit-backdrop-filter: blur(calc(var(--cab, 0) * 14px));
             padding: clamp(28px, 3.5vw, 52px);
             display: flex;
             flex-direction: column;
@@ -709,10 +861,8 @@
             position: relative;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.07);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.05),
-                0 28px 90px rgba(0,0,0,0.72);
+            border: 1px solid var(--panel-bd);
+            box-shadow: inset 0 1px 0 var(--panel-inset);
         }
 
         .ai-image-panel img {
@@ -790,8 +940,150 @@
             text-align: center;
         }
 
+        /* ─── SHIP CABIN (ambiente da seção AI) ─────────────── */
+        #ship-cabin {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: var(--cab, 0);
+            visibility: hidden;
+            will-change: opacity;
+        }
+
+        #ship-cabin.is-live { visibility: visible; }
+
+        .cabin-hull {
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg,
+                    rgba(104,120,138,0.085) 0 1px,
+                    transparent 1px 148px),
+                linear-gradient(180deg,
+                    #f3f5f7 0%,
+                    #eef1f4 38%,
+                    #e7eaee 72%,
+                    #dfe3e8 100%);
+        }
+
+        /* Luminária embutida no teto */
+        .cabin-ceiling {
+            position: absolute;
+            top: -14%;
+            left: 50%;
+            width: 86%;
+            height: 46%;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse 58% 100% at 50% 0%,
+                rgba(255,255,255,0.98) 0%,
+                rgba(244,248,252,0.62) 42%,
+                rgba(233,239,246,0) 100%);
+            /* opacity fica reservada ao avanço (--deep); o hum usa filter */
+            opacity: calc(1 - var(--deep, 0) * 0.34);
+            animation: cabin-hum 9s ease-in-out infinite;
+        }
+
+        @keyframes cabin-hum {
+            0%, 100% { filter: brightness(0.96); }
+            50%      { filter: brightness(1); }
+        }
+
+        /* Paredes laterais — juntas dos painéis + curvatura */
+        .cabin-wall {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 30%;
+            background-image:
+                repeating-linear-gradient(90deg,
+                    rgba(96,112,131,0.15) 0 1px,
+                    transparent 1px 104px),
+                linear-gradient(90deg,
+                    rgba(128,143,161,0.52) 0%,
+                    rgba(128,143,161,0.14) 62%,
+                    rgba(128,143,161,0) 100%);
+            transform: translateX(var(--cab-shift, 0px));
+        }
+
+        .cabin-wall-l { left: 0; }
+
+        .cabin-wall-r {
+            right: 0;
+            transform: scaleX(-1) translateX(var(--cab-shift, 0px));
+        }
+
+        /* Fita de luz fria correndo nas paredes */
+        .cabin-strip {
+            position: absolute;
+            top: 62%;
+            height: 2px;
+            width: 30%;
+            background: linear-gradient(90deg,
+                rgba(77,200,244,0) 0%,
+                rgba(77,200,244,0.42) 55%,
+                rgba(77,200,244,0.06) 100%);
+            box-shadow: 0 0 18px rgba(77,200,244,0.34);
+        }
+
+        .cabin-strip-l { left: 0; transform: translateX(var(--cab-shift, 0px)); }
+        .cabin-strip-r { right: 0; transform: scaleX(-1) translateX(var(--cab-shift, 0px)); }
+
+        /* Console — brilho de instrumentos junto ao piso */
+        .cabin-floor {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 30%;
+            background:
+                radial-gradient(ellipse 62% 100% at 50% 100%,
+                    rgba(77,200,244,0.17) 0%,
+                    rgba(77,200,244,0) 68%),
+                linear-gradient(0deg,
+                    rgba(140,154,171,0.46) 0%,
+                    rgba(140,154,171,0) 100%);
+        }
+
+        /* Convés — sobe conforme o usuário avança para o fim da nave */
+        .cabin-deck {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 48%;
+            opacity: var(--deep, 0);
+            background:
+                repeating-linear-gradient(90deg,
+                    rgba(92,108,127,0.11) 0 1px,
+                    transparent 1px 132px),
+                radial-gradient(ellipse 68% 100% at 50% 100%,
+                    rgba(77,200,244,0.22) 0%,
+                    rgba(77,200,244,0) 72%),
+                linear-gradient(0deg,
+                    rgba(116,132,151,0.44) 0%,
+                    rgba(116,132,151,0) 100%);
+        }
+
+        .cabin-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 88% 78% at 50% 44%,
+                transparent 38%,
+                rgba(78,92,108,0.30) 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cabin-ceiling { animation: none; }
+            .cabin-wall-l,
+            .cabin-strip-l { transform: none; }
+            .cabin-wall-r,
+            .cabin-strip-r { transform: scaleX(-1); }
+        }
+
         /* ─── CONTACT ───────────────────────────────────────── */
         #contact {
+            position: relative;
             padding: 100px 0 160px;
         }
 
@@ -810,25 +1102,45 @@
         }
 
         .contact-card {
+            position: relative;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 14px;
             padding: 36px 48px;
             border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.07);
-            background: #080810;
+            border: 1px solid var(--panel-bd);
+            background: var(--panel-bg);
             text-decoration: none;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.05),
-                0 28px 90px rgba(0,0,0,0.72);
-            transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+                inset 0 1px 0 var(--panel-inset),
+                0 28px 90px var(--panel-shadow);
+            /* só transform transiciona: animar background/border-color
+               congelaria o color-mix dirigido por --cab */
+            transition: transform 0.25s ease;
             min-width: 200px;
         }
 
+        /* Camada de hover — opacity é seguro de transicionar */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            border: 1px solid var(--hover-bd);
+            background: var(--hover-tint);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        /* mantém o conteúdo acima da camada de hover */
+        .contact-card > * { position: relative; }
+
+        .contact-card:hover::before { opacity: 1; }
+
         .contact-card:hover {
-            border-color: rgba(255,255,255,0.18);
-            background: rgba(255,255,255,0.03);
             transform: translateY(-3px);
         }
 
@@ -838,7 +1150,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.55);
+            color: var(--ink-mid);
         }
 
         .contact-icon svg {
@@ -852,14 +1164,19 @@
             font-weight: 300;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.28);
+            color: var(--ink-faint);
         }
 
         .contact-value {
             font-size: 13px;
             font-weight: 300;
-            color: rgba(255,255,255,0.60);
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.60) calc((1 - var(--cab, 0)) * 100%), rgba(19,29,40,0.84));
             letter-spacing: 0.02em;
+        }
+
+        #contact .exp-ticker-label {
+            color: var(--ink-heading);
         }
 
         /* ─── VER VÍDEO ─────────────────────────────────────── */
@@ -1081,7 +1398,9 @@
 
         /* ─── FOOTER ─────────────────────────────────────────── */
         #site-footer {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            border-top: 1px solid color-mix(in oklab,
+                rgba(255,255,255,0.06) calc((1 - var(--cab, 0)) * 100%), rgba(26,42,60,0.20));
             padding: 32px 0 40px;
         }
 
@@ -1101,14 +1420,16 @@
             font-weight: 300;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.40);
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.40) calc((1 - var(--cab, 0)) * 100%), rgba(15,24,34,0.80));
         }
 
         .footer-copy {
             font-size: 11px;
             font-weight: 300;
             letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.18);
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.18) calc((1 - var(--cab, 0)) * 100%), rgba(21,33,47,0.84));
         }
 
         .footer-links {
@@ -1124,7 +1445,8 @@
             font-weight: 300;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.22);
+            color: color-mix(in oklab,
+                rgba(255,255,255,0.22) calc((1 - var(--cab, 0)) * 100%), rgba(21,33,47,0.88));
         }
 
         .footer-links a {
@@ -1289,6 +1611,20 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Cabine: casco mais enxuto e respiro menor no mobile */
+            #ai {
+                padding: 120px 0 110px;
+            }
+
+            .ai-flow-explain {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 24px;
+            }
+
+            .cabin-wall { width: 18%; }
+            .cabin-strip { width: 18%; top: 66%; }
+            .cabin-ceiling { width: 108%; height: 38%; }
+
             #section-divider {
                 display: block !important;
                 margin-top: 16px !important;
@@ -1309,6 +1645,19 @@
 
 <!-- ─── STARFIELD ────────────────────────────────────────────── -->
 <canvas id="stars-bg" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+<!-- ─── SHIP CABIN — ambiente que envolve a seção AI ─────────── -->
+<div id="ship-cabin" aria-hidden="true">
+    <div class="cabin-hull"></div>
+    <div class="cabin-ceiling"></div>
+    <div class="cabin-wall cabin-wall-l"></div>
+    <div class="cabin-wall cabin-wall-r"></div>
+    <div class="cabin-strip cabin-strip-l"></div>
+    <div class="cabin-strip cabin-strip-r"></div>
+    <div class="cabin-floor"></div>
+    <div class="cabin-deck"></div>
+    <div class="cabin-vignette"></div>
+</div>
 
 <!-- ─── NAV ─────────────────────────────────────────────────── -->
 <nav id="site-nav">
@@ -1753,6 +2102,49 @@
             </div>
         </header>
 
+        <div class="motion-sub">
+            <span class="motion-sub-eyebrow">AI / Flow generation</span>
+            <h3 class="motion-sub-title">Flow generation</h3>
+            <div class="motion-sub-desc">
+                <p>Produced end to end in ElevenLabs Flow, a node-based environment purpose-built for continuity across generated footage. Characters and environments are established once as reference assets, then inherited by every scene downstream — preserving the same subject, wardrobe and setting from shot to shot. Each scene is authored as a connected node, allowing an entire sequence to be assembled as a single coherent production rather than a series of unrelated generations.</p>
+            </div>
+
+            <div class="work-vid-land wv-panel" data-youtube-id="4g1Ji31kz-w">
+                <div class="wv-bg"></div>
+                <img class="wv-video" src="https://img.youtube.com/vi/4g1Ji31kz-w/hqdefault.jpg" alt="Flow generation video thumbnail">
+                <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                <span class="wv-tag">16 : 9</span>
+            </div>
+
+            <div class="ai-flow-explain">
+                <div class="motion-sub-desc ai-flow-note">
+                    <p>A flow is the production graph behind the sequence. Reference nodes hold the cast and the locations; every scene node inherits from them while carrying its own prompt, model and output settings. Connecting those nodes is what enforces continuity — each shot resolves against the same established visual identity instead of being generated in isolation.</p>
+                </div>
+
+                <div class="ai-flow-shots">
+                    <figure class="ai-flow-shot">
+                        <picture>
+                            <source srcset="assets/images/flow-canvas.webp" type="image/webp">
+                            <img src="assets/images/flow-canvas.png" alt="ElevenLabs Flow production graph showing every scene node connected to its reference assets" loading="lazy" decoding="async">
+                        </picture>
+                        <figcaption class="ai-flow-cap">The complete production graph — every scene in the sequence and the reference assets feeding it.</figcaption>
+                    </figure>
+                    <figure class="ai-flow-shot">
+                        <picture>
+                            <source srcset="assets/images/flow-node.webp" type="image/webp">
+                            <img src="assets/images/flow-node.png" alt="Close-up of a single ElevenLabs Flow scene node with its prompt, model and render settings" loading="lazy" decoding="async">
+                        </picture>
+                        <figcaption class="ai-flow-cap">A single scene node — inherited references, prompt, model and render settings.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="motion-sub ai-sub-head">
+            <span class="motion-sub-eyebrow">AI / Image generation</span>
+            <h3 class="motion-sub-title">Image generation</h3>
+        </div>
+
         <div class="ai-layout">
 
             <div class="ai-image-panel">
@@ -1981,6 +2373,70 @@
 </script>
 
 <script>
+/* ── Cabine: dirige a troca de ambiente pelo scroll ────────── */
+(function () {
+    const cabin = document.getElementById('ship-cabin');
+    const ai    = document.getElementById('ai');
+    if (!cabin || !ai) return;
+
+    const contact = document.getElementById('contact');
+    const root    = document.documentElement;
+    const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Frações da viewport onde o casco fecha. Uma vez dentro da nave
+       o ambiente permanece até o rodapé — não há rampa de saída. */
+    const IN_START = 0.86, IN_END = 0.16;
+    const DEEP_START = 0.95, DEEP_END = 0.10;
+
+    const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+    const smooth  = v => v * v * (3 - 2 * v);
+
+    let lastCab = -1, lastDeep = -1, live = false;
+
+    function tick() {
+        if (!document.hidden) {
+            const vh = window.innerHeight;
+            const r  = ai.getBoundingClientRect();
+
+            const cab = smooth(clamp01(
+                (IN_START * vh - r.top) / ((IN_START - IN_END) * vh)
+            ));
+
+            if (Math.abs(cab - lastCab) > 0.002) {
+                lastCab = cab;
+                window.__cabinLevel = cab;
+                root.style.setProperty('--cab', cab.toFixed(4));
+                if (!reduce) {
+                    root.style.setProperty('--cab-shift', ((1 - cab) * -46).toFixed(1) + 'px');
+                }
+
+                const shouldLive = cab > 0.001;
+                if (shouldLive !== live) {
+                    live = shouldLive;
+                    cabin.classList.toggle('is-live', live);
+                }
+            }
+
+            /* Avanço para o fundo da nave: acende o convés, baixa o teto */
+            if (contact) {
+                const c = contact.getBoundingClientRect();
+                const deep = smooth(clamp01(
+                    (DEEP_START * vh - c.top) / ((DEEP_START - DEEP_END) * vh)
+                ));
+                if (Math.abs(deep - lastDeep) > 0.002) {
+                    lastDeep = deep;
+                    root.style.setProperty('--deep', deep.toFixed(4));
+                }
+            }
+        }
+        requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+})();
+</script>
+
+<script>
 (function () {
     const canvas = document.getElementById('stars-bg');
     const ctx    = canvas.getContext('2d');
@@ -2018,14 +2474,19 @@
 
         const scrollY = window.__lenis?.scroll ?? window.scrollY ?? 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (const s of stars) {
-            const o = s.base + Math.sin(t * s.freq + s.phase) * s.amp;
-            const h = canvas.height;
-            const drawY = ((s.y - scrollY) % h + h) % h;
-            ctx.beginPath();
-            ctx.arc(s.x, drawY, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,255,255,${o.toFixed(3)})`;
-            ctx.fill();
+
+        /* Dentro da cabine as estrelas somem */
+        const dim = 1 - (window.__cabinLevel || 0);
+        if (dim > 0.01) {
+            for (const s of stars) {
+                const o = (s.base + Math.sin(t * s.freq + s.phase) * s.amp) * dim;
+                const h = canvas.height;
+                const drawY = ((s.y - scrollY) % h + h) % h;
+                ctx.beginPath();
+                ctx.arc(s.x, drawY, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${o.toFixed(3)})`;
+                ctx.fill();
+            }
         }
         requestAnimationFrame(draw);
     }
