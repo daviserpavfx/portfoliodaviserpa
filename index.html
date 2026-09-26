@@ -15,7 +15,9 @@
             margin: 0;
             padding: 0;
             background: #030303;
-            overflow-x: hidden;
+            /* clip (e não hidden): corta o vazamento lateral sem virar
+               container de rolagem — hidden quebraria position: sticky */
+            overflow-x: clip;
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
@@ -124,6 +126,25 @@
         }
 
         .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Resume: abre um documento, não rola a página — por isso pílula */
+        .nav-links {
+            align-items: center;
+        }
+
+        .nav-links a.nav-resume {
+            display: inline-block;
+            padding: 5px 12px 5px 13px;
+            margin: -6px 0;
+            border-radius: 100px;
+            border: 1px solid color-mix(in oklab,
+                rgba(255,255,255,0.30) calc((1 - var(--cab, 0)) * 100%), rgba(11,18,26,0.28));
+            opacity: 0.85;
+        }
+
+        .nav-links a.nav-resume:hover {
             opacity: 1;
         }
 
@@ -315,6 +336,70 @@
             color: rgba(255,255,255,0.46);
             margin: 0;
             text-align: center;
+        }
+
+        /* ─── TRUSTED BY ───────────────────────────────────────── */
+        #trusted {
+            position: relative;
+            padding: 0 0 120px;
+        }
+
+        .trusted-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 32px 72px;
+            padding: 0 24px;
+        }
+
+        .trusted-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 34px;
+            text-decoration: none;
+            /* hover usa `translate` e a opacidade dos filhos: o GSAP da
+               entrada anima opacity/transform do link, sem disputa */
+            transition: translate 0.45s cubic-bezier(.22,.68,0,1.2);
+        }
+
+        .trusted-brand > * {
+            opacity: 0.82;
+            transition: opacity 0.3s ease;
+        }
+
+        .trusted-brand:hover,
+        .trusted-brand:focus-visible {
+            translate: 0 -3px;
+        }
+
+        .trusted-brand:hover > *,
+        .trusted-brand:focus-visible > * {
+            opacity: 1;
+        }
+
+        .trusted-brand:focus-visible {
+            outline: 1px solid rgba(255,255,255,0.4);
+            outline-offset: 8px;
+            border-radius: 6px;
+        }
+
+        .trusted-brand img {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+
+        /* eVolDX só tem o ícone: o nome é texto, no peso do wordmark original */
+        .trusted-evoldx img { height: 34px; }
+
+        .trusted-evoldx span {
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: #ffffff;
         }
 
         /* ─── EXPERIENCE TICKER ────────────────────────────────── */
@@ -746,13 +831,31 @@
         /* Mídias da AI ficam planas — sem sombra projetada.
            A transition também sai: animar box-shadow congelaria o
            color-mix dirigido por --cab. */
-        #ai .work-vid-land {
+        #ai .work-vid-land,
+        #ai .work-vid-port {
             box-shadow: inset 0 1px 0 var(--panel-inset);
             transition: transform 0.55s cubic-bezier(.22,.68,0,1.2);
         }
 
-        #ai .work-vid-land:hover {
+        #ai .work-vid-land:hover,
+        #ai .work-vid-port:hover {
             box-shadow: inset 0 1px 0 var(--panel-inset);
+        }
+
+        /* Vídeos do Flow lado a lado: 16:9 + 9:16 com a mesma altura,
+           cada um na proporção real — mesmo padrão de Short/Long-Form */
+        .ai-flow-videos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .ai-flow-videos .work-vid-land,
+        .ai-flow-videos .work-vid-port {
+            width: auto;
+            height: clamp(220px, 32vw, 400px);
+            flex: 0 0 auto;
         }
 
         /* Subseções da AI — mesmo padrão visual do Motion, cores da cabine */
@@ -769,8 +872,15 @@
             display: grid;
             grid-template-columns: minmax(220px, 1fr) minmax(0, 2.3fr);
             gap: 40px;
-            align-items: center;
+            align-items: start;
             margin-top: 30px;
+        }
+
+        /* Com 4 imagens a pilha fica alta: o texto acompanha a rolagem */
+        .ai-flow-explain .ai-flow-note {
+            position: sticky;
+            top: 120px;
+            margin-top: 0;
         }
 
         .ai-flow-explain .ai-flow-note p {
@@ -1476,9 +1586,25 @@
                 border-top: none;
                 border-left: none;
                 border-right: none;
-                padding: 14px 20px;
+                padding: 14px 16px;
                 box-sizing: border-box;
+                gap: 12px;
+                justify-content: space-between;
             }
+
+            /* 4 links + logo precisam caber em 375px */
+            .nav-divider { display: none; }
+
+            .nav-logo { font-size: 12px; letter-spacing: 0.06em; }
+
+            .nav-links { gap: 12px; }
+
+            .nav-links a {
+                font-size: 10px;
+                letter-spacing: 0.1em;
+            }
+
+            .nav-links a.nav-resume { padding: 4px 9px; }
 
             #mobile-pc-banner {
                 display: block;
@@ -1534,6 +1660,15 @@
                 text-align: center;
                 padding-left: 0;
             }
+
+            #trusted { padding-bottom: 56px; }
+
+            .trusted-row { gap: 24px 40px; }
+
+            .trusted-brand,
+            .trusted-evoldx img { height: 24px; }
+
+            .trusted-evoldx span { font-size: 19px; }
 
             #hero-line {
                 display: block;
@@ -1621,6 +1756,20 @@
                 gap: 24px;
             }
 
+            .ai-flow-explain .ai-flow-note { position: static; }
+
+            /* Vídeos empilham, mesma largura do padrão de Short/Long-Form */
+            .ai-flow-videos {
+                flex-direction: column;
+            }
+
+            .ai-flow-videos .work-vid-land,
+            .ai-flow-videos .work-vid-port {
+                width: 100%;
+                max-width: 340px;
+                height: auto;
+            }
+
             .cabin-wall { width: 18%; }
             .cabin-strip { width: 18%; top: 66%; }
             .cabin-ceiling { width: 108%; height: 38%; }
@@ -1667,6 +1816,7 @@
         <li><a href="#about" data-scroll>About</a></li>
         <li><a href="#work" data-scroll>Work</a></li>
         <li><a href="#contact" data-scroll>Contact</a></li>
+        <li><a class="nav-resume" href="assets/docs/davi-serpa-resume.pdf" target="_blank" rel="noopener">Resume</a></li>
     </ul>
 </nav>
 
@@ -1758,6 +1908,23 @@
         <div class="about-bio">
             <p>3+ years of professional experience. Love to convert leads into results through high-quality video edits and a strong and persuasive hook. I value clear communication within the team and objective direction throughout the demands.</p>
         </div>
+    </div>
+</section>
+
+<!-- ─── TRUSTED BY ──────────────────────────────────────────── -->
+<section id="trusted">
+    <p class="exp-ticker-label">Trusted by</p>
+    <div class="trusted-row">
+        <a class="trusted-brand" href="https://gestai.com.br" target="_blank" rel="noopener">
+            <img src="assets/images/brands/gestai.png" alt="GestAI">
+        </a>
+        <a class="trusted-brand trusted-evoldx" href="https://www1.cdtsoftware.com.br/produtos/evoldx.html" target="_blank" rel="noopener" aria-label="eVolDX">
+            <img src="assets/images/brands/evoldx-icon.png" alt="">
+            <span>eVolDX</span>
+        </a>
+        <a class="trusted-brand" href="https://linkbiz.ai" target="_blank" rel="noopener">
+            <img src="assets/images/brands/linkbiz.png" alt="LinkBiz">
+        </a>
     </div>
 </section>
 
@@ -2116,11 +2283,20 @@
                 <p>Produced end to end in ElevenLabs Flow, a node-based environment purpose-built for continuity across generated footage. Characters and environments are established once as reference assets, then inherited by every scene downstream — preserving the same subject, wardrobe and setting from shot to shot. Each scene is authored as a connected node, allowing an entire sequence to be assembled as a single coherent production rather than a series of unrelated generations.</p>
             </div>
 
-            <div class="work-vid-land wv-panel" data-youtube-id="4g1Ji31kz-w">
-                <div class="wv-bg"></div>
-                <img class="wv-video" src="https://img.youtube.com/vi/4g1Ji31kz-w/hqdefault.jpg" alt="Flow generation video thumbnail">
-                <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
-                <span class="wv-tag">16 : 9</span>
+            <div class="ai-flow-videos">
+                <div class="work-vid-land wv-panel" data-youtube-id="4g1Ji31kz-w">
+                    <div class="wv-bg"></div>
+                    <img class="wv-video" src="https://img.youtube.com/vi/4g1Ji31kz-w/hqdefault.jpg" alt="Flow generation video thumbnail">
+                    <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                    <span class="wv-tag">16 : 9</span>
+                </div>
+
+                <div class="work-vid-port wv-panel" data-youtube-id="309TRWP7lPw">
+                    <div class="wv-bg"></div>
+                    <img class="wv-video" src="https://img.youtube.com/vi/309TRWP7lPw/hqdefault.jpg" alt="GestAI flow generation video thumbnail">
+                    <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                    <span class="wv-tag">9 : 16</span>
+                </div>
             </div>
 
             <div class="ai-flow-explain">
@@ -2142,6 +2318,20 @@
                             <img src="assets/images/flow-node.png" alt="Close-up of a single ElevenLabs Flow scene node with its prompt, model and render settings" loading="lazy" decoding="async">
                         </picture>
                         <figcaption class="ai-flow-cap">A single scene node — inherited references, prompt, model and render settings.</figcaption>
+                    </figure>
+                    <figure class="ai-flow-shot">
+                        <picture>
+                            <source srcset="assets/images/flow2-canvas.webp" type="image/webp">
+                            <img src="assets/images/flow2-canvas.png" alt="ElevenLabs Flow production graph for the GestAI sequence, with character and environment references feeding every scene" loading="lazy" decoding="async">
+                        </picture>
+                        <figcaption class="ai-flow-cap">Production graph for the GestAI sequence — character and environment references feeding every scene.</figcaption>
+                    </figure>
+                    <figure class="ai-flow-shot">
+                        <picture>
+                            <source srcset="assets/images/flow2-refs.webp" type="image/webp">
+                            <img src="assets/images/flow2-refs.png" alt="Close-up of the character sheet and environment reference nodes connected to scene nodes in ElevenLabs Flow" loading="lazy" decoding="async">
+                        </picture>
+                        <figcaption class="ai-flow-cap">Reference nodes in detail — one character sheet and three environment angles, established once and reused across every shot.</figcaption>
                     </figure>
                 </div>
             </div>
@@ -2336,19 +2526,33 @@
         duration: 1.6, ease: 'expo.out'
     }, 1.82);
 
-    /* ── Experience: entra após o About ─────────────────────── */
+    /* ── Trusted by: entra após o About, logos em cascata ───── */
+    gsap.set('#trusted .exp-ticker-label, #trusted .trusted-brand', {
+        opacity: 0, filter: 'blur(20px)', y: 32
+    });
+    tl.to('#trusted .exp-ticker-label', {
+        opacity: 1, filter: 'blur(0px)', y: 0,
+        duration: 1.6, ease: 'expo.out'
+    }, 2.04)
+    .to('#trusted .trusted-brand', {
+        opacity: 1, filter: 'blur(0px)', y: 0,
+        duration: 1.6, ease: 'expo.out',
+        stagger: 0.14
+    }, 2.2);
+
+    /* ── Experience: entra após o Trusted by ────────────────── */
     gsap.set('#exp-ticker .exp-ticker-label, #exp-ticker .ticker-track-wrap', {
         opacity: 0, filter: 'blur(20px)', y: 32
     });
     tl.to('#exp-ticker .exp-ticker-label', {
         opacity: 1, filter: 'blur(0px)', y: 0,
         duration: 1.6, ease: 'expo.out'
-    }, 2.04)
+    }, 2.46)
     .to('#exp-ticker .ticker-track-wrap', {
         opacity: 1, filter: 'blur(0px)', y: 0,
         duration: 1.6, ease: 'expo.out',
         stagger: 0.18
-    }, 2.26);
+    }, 2.68);
 
     /* ── Smooth scroll (Lenis + GSAP ticker) ─────────────────── */
     function initLenis() {
