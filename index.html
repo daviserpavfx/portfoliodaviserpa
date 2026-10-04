@@ -598,20 +598,25 @@
             display: block;
         }
 
+        /* Grade de 4 colunas: verticais lado a lado, o 16:9 ocupa a linha
+           inteira — mesma largura da fileira de shorts, bordas alinhadas.
+           912px = 4 × 216px + 3 × 16px (o tamanho que os shorts já tinham) */
         .work-layout {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
+            max-width: 912px;
+            margin: 0 auto;
         }
 
         .work-layout .work-vid-land,
         .work-layout .work-vid-port {
-            width: auto;
-            height: clamp(220px, 30vw, 380px);
-            flex: 0 0 auto;
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
         }
+
+        .work-layout .work-vid-land { grid-column: 1 / -1; }
 
         .work-desc { flex-shrink: 0; }
 
@@ -1732,7 +1737,8 @@
 
             /* Work: 3 vídeos empilhados, centralizados, sem esticar */
             .work-layout {
-                flex-direction: column;
+                grid-template-columns: minmax(0, 1fr);
+                justify-items: center;
             }
 
             .work-layout .work-vid-land,
@@ -2160,6 +2166,13 @@
         </header>
 
         <div class="work-layout">
+
+            <div class="work-vid-land wv-panel" data-youtube-id="tWKXCwSBSEM">
+                <div class="wv-bg"></div>
+                <img class="wv-video" src="https://img.youtube.com/vi/tWKXCwSBSEM/hqdefault.jpg" alt="Work long-form video thumbnail">
+                <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                <span class="wv-tag">16 : 9</span>
+            </div>
 
             <div class="work-vid-port wv-panel">
                 <div class="wv-bg"></div>
