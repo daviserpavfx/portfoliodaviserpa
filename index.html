@@ -1503,7 +1503,8 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 44px;
+            /* teto em % p/ não cobrir demais o player 16:9 (que é baixo) */
+            height: min(72px, 24%);
             z-index: 5;
             display: none;
             touch-action: none;
