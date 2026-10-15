@@ -473,6 +473,10 @@
             display: none;
         }
 
+        #mobile-pc-banner {
+            display: none;
+        }
+
         /* Apps exclusivos da faixa desktop */
         .ticker-desktop-only {
             display: flex;
@@ -1621,28 +1625,45 @@
 
             .nav-links a.nav-resume { padding: 4px 9px; }
 
-            /* Buraco negro no celular: o vídeo (16:9) fica bem maior que a
-               tela, com o buraco centralizado atrás do título e o disco
-               saindo pelas laterais com fade — em vez de cortado em retrato */
-            #hero { height: 100svh; }
+            #mobile-pc-banner {
+                display: block;
+                position: fixed;
+                top: 48px;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                text-align: center;
+                font-size: clamp(9px, 2.5vw, 11px);
+                font-weight: 300;
+                letter-spacing: 0.12em;
+                color: rgba(255, 255, 255, 0.72);
+                padding: 6px 0 5px;
+                pointer-events: none;
+            }
+
+            /* Esconde todo o buraco negro (vídeos + container + vignette) */
+            #hero > div:first-child {
+                display: none !important;
+            }
 
             .video-wrap {
-                -webkit-mask-image: radial-gradient(ellipse 62% 46% at center,
-                    black 52%, transparent 100%);
-                mask-image: radial-gradient(ellipse 62% 46% at center,
-                    black 52%, transparent 100%);
+                display: none !important;
             }
 
-            .video-wrap video {
-                flex: 0 0 auto;
-                width: 235vw;
-                height: auto;
-                aspect-ratio: 1920 / 1068;
-                transform: translateX(-4px);
+            /* H1 sobe para ~30% do topo */
+            #hero > div.relative {
+                transform: translateY(-20vh) !important;
             }
 
+            /* Botão sobe para acima do h1 */
+            #contact-btn {
+                top: 13vh !important;
+            }
+
+            /* About sobe para logo após o conteúdo hero */
             #about {
-                padding-top: 24px;
+                margin-top: -48vh;
+                padding-top: 72px;
                 padding-bottom: 48px;
                 padding-left: 24px;
                 padding-right: 24px;
@@ -1667,6 +1688,10 @@
             .trusted-evoldx img { height: 24px; }
 
             .trusted-evoldx span { font-size: 19px; }
+
+            #hero-line {
+                display: block;
+            }
 
             .ticker-desktop-only {
                 display: none !important;
@@ -1822,6 +1847,8 @@
         <li><a class="nav-resume" href="assets/docs/davi-serpa-resume.pdf" target="_blank" rel="noopener">Resume</a></li>
     </ul>
 </nav>
+
+<div id="mobile-pc-banner">BETTER EXPERIENCE ON PC</div>
 
 <!-- ─── HERO ─────────────────────────────────────────────────── -->
 <section id="hero">
@@ -2524,6 +2551,15 @@
         navEl.classList.add('is-visible');
         gsap.to(navEl, { opacity: 1, y: 0, duration: 0.90, ease: 'expo.out' });
     }, [], 1.4);
+
+    /* ── Mobile PC banner: desliza após a nav ───────────────── */
+    if ('ontouchstart' in window) {
+        const banner = document.getElementById('mobile-pc-banner');
+        if (banner) {
+            gsap.set(banner, { opacity: 0, y: -16 });
+            tl.to(banner, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, 2.2);
+        }
+    }
 
     /* ── About: entra após a hero ───────────────────────────── */
     gsap.set('#about .about-title, #about .about-bio p', {
