@@ -3,7 +3,17 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>Portfolio</title>
+    <title>Davi Serpa — Motion Designer &amp; Video Editor</title>
+    <meta name="description" content="Portfolio of Davi Serpa, motion designer and video editor: short and long-form content, motion graphics and AI-driven video production."/>
+    <meta name="theme-color" content="#030303"/>
+
+    <!-- Prévia ao compartilhar o link (WhatsApp, LinkedIn, X…) -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://daviserpa.vercel.app/"/>
+    <meta property="og:title" content="Davi Serpa — Motion Designer &amp; Video Editor"/>
+    <meta property="og:description" content="Short and long-form content, motion graphics and AI-driven video production."/>
+    <meta property="og:image" content="https://daviserpa.vercel.app/assets/images/hero-poster.jpg"/>
+    <meta name="twitter:card" content="summary_large_image"/>
     <link href="/favicon.png?v=2" rel="icon" type="image/png"/>
     <link href="/favicon.ico?v=2" rel="shortcut icon" type="image/x-icon"/>
 
@@ -297,15 +307,7 @@
                 0  0  18px rgba(255,255,255,0.06);
         }
 
-        /* ─── Assinatura (GIF via canvas) ────────────────────── */
-        #sig-canvas {
-            width: clamp(80px, 11vw, 150px);
-            height: auto;
-        }
-
         /* ─── ABOUT ───────────────────────────────────────────── */
-        :root { --margin: clamp(80px, 15vw, 240px); }
-
         #about {
             position: relative;
             box-sizing: border-box;
@@ -437,10 +439,13 @@
             mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
         }
 
+        /* Loop sem emenda: o -50% da animação só cai exatamente no início
+           do set B se os dois sets tiverem largura idêntica — por isso o
+           espaço vem do padding de CADA item (inclusive o último), não de
+           gap, que deixaria o último item sem o espaço final. */
         .ticker-track {
             display: flex;
             align-items: center;
-            gap: 48px;
             width: max-content;
             animation: ticker-scroll 22s linear infinite;
         }
@@ -468,10 +473,6 @@
             display: none;
         }
 
-        #mobile-pc-banner {
-            display: none;
-        }
-
         /* Apps exclusivos da faixa desktop */
         .ticker-desktop-only {
             display: flex;
@@ -482,6 +483,7 @@
             align-items: center;
             gap: 14px;
             flex-shrink: 0;
+            padding-right: 48px;
         }
 
         .ticker-logo {
@@ -527,7 +529,10 @@
             background: rgba(255,255,255,0.15);
             margin-left: 48px;
         }
-        .ticker-item:last-child::after { display: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ticker-track { animation-play-state: paused; }
+        }
 
         /* ─── WORK ───────────────────────────────────────────── */
         #work {
@@ -544,17 +549,6 @@
         }
 
         .work-heading { margin-bottom: 48px; }
-
-        .work-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 300;
-            letter-spacing: 0.30em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.32);
-            margin-bottom: 14px;
-            padding-left: 2px;
-        }
 
         .work-title-row {
             display: flex;
@@ -599,14 +593,11 @@
         }
 
         /* Grade de 4 colunas: verticais lado a lado, o 16:9 ocupa a linha
-           inteira — mesma largura da fileira de shorts, bordas alinhadas.
-           912px = 4 × 216px + 3 × 16px (o tamanho que os shorts já tinham) */
+           inteira. Usa a largura toda do container, alinhada ao título. */
         .work-layout {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
-            max-width: 912px;
-            margin: 0 auto;
         }
 
         .work-layout .work-vid-land,
@@ -674,46 +665,6 @@
             position: relative;
             padding: 60px 0 80px;
             box-sizing: border-box;
-        }
-
-        .motion-container {
-            max-width: none;
-            padding: 0 clamp(16px, 2.5vw, 40px);
-            box-sizing: border-box;
-        }
-
-        .motion-heading { margin-bottom: 36px; }
-
-        .motion-title-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .motion-title {
-            font-size: clamp(26px, 4.2vw, 62px);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            margin: 0;
-            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.46) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-        }
-
-        .motion-panel {
-            position: relative;
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.07);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.05),
-                0 28px 90px rgba(0,0,0,0.72);
         }
 
         .motion-coming-soon {
@@ -800,7 +751,7 @@
         /* ─── AI ────────────────────────────────────────────── */
         #ai {
             position: relative;
-            padding: 210px 0 190px;
+            padding: 210px 0 110px;
             box-sizing: border-box;
         }
 
@@ -952,18 +903,6 @@
             color: rgba(255,255,255,0.28);
         }
 
-        .ai-text-heading {
-            font-size: clamp(18px, 2vw, 26px);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.2;
-            margin: 0;
-            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.55) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .ai-text-body {
             font-size: clamp(12px, 0.95vw, 14px);
             font-weight: 300;
@@ -1008,14 +947,6 @@
             list-style: none;
             margin: 0;
             padding: 0;
-        }
-
-        .ai-workflow-intro {
-            font-size: clamp(12px, 0.95vw, 14px);
-            font-weight: 300;
-            line-height: 1.9;
-            color: rgba(255,255,255,0.42);
-            margin: 0;
         }
 
         .ai-workflow-heading {
@@ -1199,7 +1130,7 @@
         /* ─── CONTACT ───────────────────────────────────────── */
         #contact {
             position: relative;
-            padding: 100px 0 160px;
+            padding: 80px 0 160px;
         }
 
         .contact-container {
@@ -1234,7 +1165,8 @@
             /* só transform transiciona: animar background/border-color
                congelaria o color-mix dirigido por --cab */
             transition: transform 0.25s ease;
-            min-width: 200px;
+            flex: 0 1 260px;
+            min-width: 0;
         }
 
         /* Camada de hover — opacity é seguro de transicionar */
@@ -1318,6 +1250,16 @@
 
         .wv-panel { cursor: pointer; }
 
+        .wv-panel:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.7);
+            outline-offset: 3px;
+        }
+
+        /* o card "Coming Soon" não é clicável: sem o lift do hover */
+        .work-vid-land:not(.wv-panel):hover {
+            transform: none;
+        }
+
         .wv-panel::after {
             content: 'click to expand';
             position: absolute;
@@ -1330,6 +1272,10 @@
             color: rgba(255,255,255,0.18);
             pointer-events: none;
             z-index: 2;
+        }
+
+        @media (hover: none) {
+            .wv-panel::after { content: 'tap to expand'; }
         }
 
         .wv-video {
@@ -1554,14 +1500,6 @@
                 rgba(255,255,255,0.18) calc((1 - var(--cab, 0)) * 100%), rgba(21,33,47,0.84));
         }
 
-        .footer-links {
-            display: flex;
-            gap: 28px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
         .footer-location {
             font-size: 10px;
             font-weight: 300;
@@ -1571,18 +1509,83 @@
                 rgba(255,255,255,0.22) calc((1 - var(--cab, 0)) * 100%), rgba(21,33,47,0.88));
         }
 
-        .footer-links a {
-            font-size: 10px;
-            font-weight: 300;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.22);
-            text-decoration: none;
-            transition: color 0.2s ease;
+        /* ─── REVEAL AO ROLAR ──────────────────────────────────────
+           Usa `translate` + filter (não `transform`), para não disputar
+           com o hover dos cards, que anima `transform`. Só esconde quando
+           o JS marcou <html class="js-reveal"> — sem JS, tudo aparece. */
+        .js-reveal .reveal {
+            opacity: 0;
+            translate: 0 34px;
+            filter: blur(14px);
         }
 
-        .footer-links a:hover {
-            color: rgba(255,255,255,0.55);
+        .js-reveal .reveal.is-in {
+            opacity: 1;
+            translate: 0 0;
+            filter: blur(0);
+            transition:
+                opacity   1.1s cubic-bezier(.16,1,.3,1) var(--rd, 0ms),
+                translate 1.3s cubic-bezier(.16,1,.3,1) var(--rd, 0ms),
+                filter    1.1s cubic-bezier(.16,1,.3,1) var(--rd, 0ms),
+                transform 0.55s cubic-bezier(.22,.68,0,1.2);
+        }
+
+        /* ─── CARDS DE VÍDEO: brilho que segue o cursor + zoom ───── */
+        .wv-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(255,255,255,0.16), transparent 60%);
+            transition: opacity 0.4s ease;
+        }
+
+        .wv-panel:hover .wv-glow { opacity: 1; }
+
+        .wv-panel img.wv-video,
+        .wv-panel video.wv-video {
+            transition: scale 1.1s cubic-bezier(.16,1,.3,1);
+        }
+
+        .wv-panel:hover img.wv-video,
+        .wv-panel:hover video.wv-video {
+            scale: 1.045;
+        }
+
+        /* ─── NAV: seção atual ───────────────────────────────────── */
+        .nav-links a:not(.nav-resume) {
+            position: relative;
+        }
+
+        .nav-links a:not(.nav-resume)::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -7px;
+            width: 3px;
+            height: 3px;
+            margin-left: -1.5px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0;
+            scale: 0;
+            transition: opacity 0.35s ease, scale 0.35s cubic-bezier(.22,.68,0,1.4);
+        }
+
+        .nav-links a.is-active {
+            opacity: 1;
+        }
+
+        .nav-links a.is-active::after {
+            opacity: 1;
+            scale: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .wv-panel:hover img.wv-video,
+            .wv-panel:hover video.wv-video { scale: 1; }
         }
 
         /* ─── MOBILE ────────────────────────────────────────────── */
@@ -1618,45 +1621,28 @@
 
             .nav-links a.nav-resume { padding: 4px 9px; }
 
-            #mobile-pc-banner {
-                display: block;
-                position: fixed;
-                top: 48px;
-                left: 0;
-                right: 0;
-                z-index: 999;
-                text-align: center;
-                font-size: clamp(9px, 2.5vw, 11px);
-                font-weight: 300;
-                letter-spacing: 0.12em;
-                color: rgba(255, 255, 255, 0.72);
-                padding: 6px 0 5px;
-                pointer-events: none;
-            }
-
-            /* Esconde todo o buraco negro (vídeos + container + vignette) */
-            #hero > div:first-child {
-                display: none !important;
-            }
+            /* Buraco negro no celular: o vídeo (16:9) fica bem maior que a
+               tela, com o buraco centralizado atrás do título e o disco
+               saindo pelas laterais com fade — em vez de cortado em retrato */
+            #hero { height: 100svh; }
 
             .video-wrap {
-                display: none !important;
+                -webkit-mask-image: radial-gradient(ellipse 62% 46% at center,
+                    black 52%, transparent 100%);
+                mask-image: radial-gradient(ellipse 62% 46% at center,
+                    black 52%, transparent 100%);
             }
 
-            /* H1 sobe para ~30% do topo */
-            #hero > div.relative {
-                transform: translateY(-20vh) !important;
+            .video-wrap video {
+                flex: 0 0 auto;
+                width: 235vw;
+                height: auto;
+                aspect-ratio: 1920 / 1068;
+                transform: translateX(-4px);
             }
 
-            /* Botão sobe para acima do h1 */
-            #contact-btn {
-                top: 13vh !important;
-            }
-
-            /* About sobe para logo após o conteúdo hero */
             #about {
-                margin-top: -48vh;
-                padding-top: 72px;
+                padding-top: 24px;
                 padding-bottom: 48px;
                 padding-left: 24px;
                 padding-right: 24px;
@@ -1682,18 +1668,15 @@
 
             .trusted-evoldx span { font-size: 19px; }
 
-            #hero-line {
-                display: block;
-            }
-
             .ticker-desktop-only {
                 display: none !important;
             }
 
             .ticker-track {
-                gap: 20px;
                 animation-duration: 16s;
             }
+
+            .ticker-item { padding-right: 20px; }
 
             .ticker-track-right {
                 animation-duration: 10s;
@@ -1716,6 +1699,13 @@
                 width: 100%;
             }
 
+            /* Rodapé: 3 textos lado a lado não cabem em 375px — empilha */
+            .footer-inner {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
             /* Contact: cards empilhados */
             .contact-grid {
                 flex-direction: column;
@@ -1723,9 +1713,9 @@
             }
 
             .contact-card {
+                flex: none;
                 width: 100%;
                 max-width: 320px;
-                min-width: unset;
             }
 
             /* AI section: imagem em cima grande e centralizada, prompt abaixo */
@@ -1833,8 +1823,6 @@
     </ul>
 </nav>
 
-<div id="mobile-pc-banner">BETTER EXPERIENCE ON PC</div>
-
 <!-- ─── HERO ─────────────────────────────────────────────────── -->
 <section id="hero">
 
@@ -1914,7 +1902,7 @@
 
 </section>
 
-<!-- ─── PRÓXIMA SEÇÃO (placeholder) ─────────────────────────── -->
+<!-- ─── ABOUT ────────────────────────────────────────────────── -->
 <section id="about">
     <h2 class="about-title">About</h2>
     <div class="about-inner">
@@ -2176,12 +2164,12 @@
 
             <div class="work-vid-land wv-panel" data-youtube-id="tWKXCwSBSEM">
                 <div class="wv-bg"></div>
-                <img class="wv-video" src="https://img.youtube.com/vi/tWKXCwSBSEM/hqdefault.jpg" alt="Work long-form video thumbnail">
+                <img class="wv-video" src="https://img.youtube.com/vi/tWKXCwSBSEM/hqdefault.jpg" alt="Long-form video thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">16 : 9</span>
             </div>
 
-            <div class="work-vid-port wv-panel">
+            <div class="work-vid-port wv-panel" aria-label="Play video: HALEVORA app (short-form)">
                 <div class="wv-bg"></div>
                 <video class="wv-video" src="assets/videos/halevora-app-video-1.mp4" poster="assets/images/posters/halevora-app-video-1.jpg" muted playsinline preload="none"></video>
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
@@ -2190,21 +2178,21 @@
 
             <div class="work-vid-port wv-panel" data-youtube-id="vHdCmT81cS8">
                 <div class="wv-bg"></div>
-                <img class="wv-video" src="assets/images/posters/work-nlg-1.jpg" alt="Work NLG 1 video thumbnail">
+                <img class="wv-video" src="assets/images/posters/work-nlg-1.jpg" alt="Short-form video 1 thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">9 : 16</span>
             </div>
 
             <div class="work-vid-port wv-panel" data-youtube-id="_NRhuaVEVBY">
                 <div class="wv-bg"></div>
-                <img class="wv-video" src="assets/images/posters/work-nlg-2.jpg" alt="Work NLG 2 video thumbnail">
+                <img class="wv-video" src="assets/images/posters/work-nlg-2.jpg" alt="Short-form video 2 thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">9 : 16</span>
             </div>
 
             <div class="work-vid-port wv-panel" data-youtube-id="4bRBsksrZNk">
                 <div class="wv-bg"></div>
-                <img class="wv-video" src="https://img.youtube.com/vi/4bRBsksrZNk/hqdefault.jpg" alt="Work Short 3 video thumbnail">
+                <img class="wv-video" src="https://img.youtube.com/vi/4bRBsksrZNk/hqdefault.jpg" alt="Short-form video 3 thumbnail">
                 <div class="wv-play-btn"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                 <span class="wv-tag">9 : 16</span>
             </div>
@@ -2367,7 +2355,7 @@
             <div class="ai-image-panel">
                 <picture>
                     <source srcset="assets/images/ai-generated.webp" type="image/webp">
-                    <img src="assets/images/ai-generated.png" alt="AI Generated" loading="lazy" decoding="async">
+                    <img src="assets/images/ai-generated.jpg" alt="AI-generated image of an astronaut playing a glowing cello in outer space" loading="lazy" decoding="async">
                 </picture>
             </div>
 
@@ -2387,7 +2375,7 @@
                 <li><span class="wl-cat">Image generation</span><span class="wl-val">Nano Banana PRO, Seedream 5, FLUX 2.0 PRO</span></li>
                 <li><span class="wl-cat">Lip-sync</span><span class="wl-val">Veed Fabric, OmniHuman 1.5</span></li>
             </ul>
-            <p class="ai-codex-credit">(This page was made by me using Codex)</p>
+            <p class="ai-codex-credit">(This page was made by me using Claude)</p>
         </div>
 
     </div>
@@ -2476,7 +2464,18 @@
         onStart() {
             const v = document.getElementById('sig-img');
             v.currentTime = 0;
-            v.play();
+            /* aba aberta em segundo plano: o navegador recusa o play() e a
+               assinatura ficaria parada no 1º quadro (vazio) — tenta de novo
+               quando a aba ficar visível */
+            v.play().catch(() => {
+                const retry = () => {
+                    if (document.hidden) return;
+                    document.removeEventListener('visibilitychange', retry);
+                    v.currentTime = 0;
+                    v.play().catch(() => {});
+                };
+                document.addEventListener('visibilitychange', retry);
+            });
         }
     }, 1);
 
@@ -2515,7 +2514,9 @@
     );
 
     /* ── Revela o botão junto com a assinatura ──────────────── */
-    tl.to('#contact-btn', { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' }, 1.4);
+    /* só opacity: animar y faria o GSAP reescrever o transform inline
+       (o -50% vira px fixo), quebrando a centralização e o hover */
+    tl.to('#contact-btn', { opacity: 1, duration: 0.8, ease: 'expo.out' }, 1.4);
 
     /* ── Nav: aparece junto com o botão e fica fixo ────────────── */
     const navEl = document.getElementById('site-nav');
@@ -2523,15 +2524,6 @@
         navEl.classList.add('is-visible');
         gsap.to(navEl, { opacity: 1, y: 0, duration: 0.90, ease: 'expo.out' });
     }, [], 1.4);
-
-    /* ── Mobile PC banner: desliza após a nav ───────────────── */
-    if ('ontouchstart' in window) {
-        const banner = document.getElementById('mobile-pc-banner');
-        if (banner) {
-            gsap.set(banner, { opacity: 0, y: -16 });
-            tl.to(banner, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, 2.2);
-        }
-    }
 
     /* ── About: entra após a hero ───────────────────────────── */
     gsap.set('#about .about-title, #about .about-bio p', {
@@ -2624,46 +2616,145 @@
 
     let lastCab = -1, lastDeep = -1, live = false;
 
-    function tick() {
-        if (!document.hidden) {
-            const vh = window.innerHeight;
-            const r  = ai.getBoundingClientRect();
+    function update() {
+        const vh = window.innerHeight;
+        const r  = ai.getBoundingClientRect();
 
-            const cab = smooth(clamp01(
-                (IN_START * vh - r.top) / ((IN_START - IN_END) * vh)
-            ));
+        const cab = smooth(clamp01(
+            (IN_START * vh - r.top) / ((IN_START - IN_END) * vh)
+        ));
 
-            if (Math.abs(cab - lastCab) > 0.002) {
-                lastCab = cab;
-                window.__cabinLevel = cab;
-                root.style.setProperty('--cab', cab.toFixed(4));
-                if (!reduce) {
-                    root.style.setProperty('--cab-shift', ((1 - cab) * -46).toFixed(1) + 'px');
-                }
-
-                const shouldLive = cab > 0.001;
-                if (shouldLive !== live) {
-                    live = shouldLive;
-                    cabin.classList.toggle('is-live', live);
-                }
+        if (Math.abs(cab - lastCab) > 0.002) {
+            lastCab = cab;
+            window.__cabinLevel = cab;
+            root.style.setProperty('--cab', cab.toFixed(4));
+            if (!reduce) {
+                root.style.setProperty('--cab-shift', ((1 - cab) * -46).toFixed(1) + 'px');
             }
 
-            /* Avanço para o fundo da nave: acende o convés, baixa o teto */
-            if (contact) {
-                const c = contact.getBoundingClientRect();
-                const deep = smooth(clamp01(
-                    (DEEP_START * vh - c.top) / ((DEEP_START - DEEP_END) * vh)
-                ));
-                if (Math.abs(deep - lastDeep) > 0.002) {
-                    lastDeep = deep;
-                    root.style.setProperty('--deep', deep.toFixed(4));
-                }
+            const shouldLive = cab > 0.001;
+            if (shouldLive !== live) {
+                live = shouldLive;
+                cabin.classList.toggle('is-live', live);
             }
         }
+
+        /* Avanço para o fundo da nave: acende o convés, baixa o teto */
+        if (contact) {
+            const c = contact.getBoundingClientRect();
+            const deep = smooth(clamp01(
+                (DEEP_START * vh - c.top) / ((DEEP_START - DEEP_END) * vh)
+            ));
+            if (Math.abs(deep - lastDeep) > 0.002) {
+                lastDeep = deep;
+                root.style.setProperty('--deep', deep.toFixed(4));
+            }
+        }
+    }
+
+    function tick() {
+        if (!document.hidden) update();
         requestAnimationFrame(tick);
     }
 
     requestAnimationFrame(tick);
+})();
+</script>
+
+<script>
+/* ── Movimento: reveal, brilho dos cards e nav ─────────────── */
+(function () {
+    const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePtr  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* ── Reveal: elementos abaixo da dobra entram ao rolar ──────
+       (hero/about/trusted/experience já têm a intro do load) */
+    const REVEAL = [
+        '#work .work-heading', '#work .wv-panel',
+        '#motion .work-heading', '#motion .motion-sub-eyebrow', '#motion .motion-sub-title',
+        '#motion .motion-sub-desc', '#motion .motion-instructive-grid > *', '#motion .work-vid-land:not(.wv-panel)',
+        '#ai .work-heading', '#ai .motion-sub > .motion-sub-eyebrow', '#ai .motion-sub > .motion-sub-title',
+        '#ai .motion-sub > .motion-sub-desc', '#ai .ai-flow-videos > *', '#ai .ai-flow-note', '#ai .ai-flow-shot',
+        '#ai .ai-image-panel', '#ai .ai-text-panel', '#ai .ai-workflow-loose',
+        '#contact .exp-ticker-label', '#contact .contact-card', '#site-footer .footer-inner',
+    ];
+    let pending = [];
+    if (!reduce) {
+        document.documentElement.classList.add('js-reveal');
+        pending = [...document.querySelectorAll(REVEAL.join(','))];
+        pending.forEach(el => el.classList.add('reveal'));
+    }
+
+    function revealVisible() {
+        if (!pending.length) return;
+        const edge = window.innerHeight * 0.9;
+        let batch = 0;
+        pending = pending.filter(el => {
+            if (el.getBoundingClientRect().top > edge) return true;
+            /* cascata entre os que entram no mesmo frame */
+            el.style.setProperty('--rd', Math.min(batch++ * 90, 450) + 'ms');
+            el.classList.add('is-in');
+            /* depois da entrada, devolve as transições originais do elemento */
+            setTimeout(() => {
+                el.classList.remove('reveal', 'is-in');
+                el.style.removeProperty('--rd');
+            }, 1500 + batch * 90);
+            return false;
+        });
+    }
+
+    /* ── Nav: marca a seção em que o usuário está ─────────────── */
+    const navLinks = [...document.querySelectorAll('#site-nav a[data-scroll]')];
+    const groups = [
+        { link: navLinks.find(a => a.hash === '#about'),   ids: ['about', 'trusted', 'exp-ticker'] },
+        { link: navLinks.find(a => a.hash === '#work'),    ids: ['work', 'motion', 'ai'] },
+        { link: navLinks.find(a => a.hash === '#contact'), ids: ['contact'] },
+    ].map(g => ({ link: g.link, els: g.ids.map(id => document.getElementById(id)).filter(Boolean) }));
+    let activeLink = null;
+
+    function updateNav() {
+        const probe = window.innerHeight * 0.4;
+        let current = null;
+        for (const g of groups) {
+            for (const el of g.els) {
+                const r = el.getBoundingClientRect();
+                if (r.top <= probe && r.bottom > probe) current = g.link;
+            }
+        }
+        /* fim da página: o contato pode não alcançar a linha de 40% */
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+            current = groups[2].link;
+        }
+        if (current !== activeLink) {
+            activeLink?.classList.remove('is-active');
+            current?.classList.add('is-active');
+            activeLink = current;
+        }
+    }
+
+    function tick() {
+        if (!document.hidden) {
+            revealVisible();
+            updateNav();
+        }
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* ── Cards: brilho acompanha o cursor ─────────────────────── */
+    if (finePtr) {
+        document.querySelectorAll('.wv-panel').forEach(panel => {
+            const glow = document.createElement('span');
+            glow.className = 'wv-glow';
+            glow.setAttribute('aria-hidden', 'true');
+            panel.appendChild(glow);
+            panel.addEventListener('pointermove', e => {
+                const r = panel.getBoundingClientRect();
+                panel.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                panel.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+    }
 })();
 </script>
 
@@ -2674,10 +2765,16 @@
     const COUNT  = window.innerWidth < 768 ? 150 : 240;
     const stars  = [];
     let lastDraw = 0;
+    let W = 0, H = 0;
 
+    /* desenha em pixels físicos (nítido em tela retina), coordenadas em CSS px */
     function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width  = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function init() {
@@ -2685,8 +2782,8 @@
         stars.length = 0;
         for (let i = 0; i < COUNT; i++) {
             stars.push({
-                x:     Math.random() * canvas.width,
-                y:     Math.random() * canvas.height,
+                x:     Math.random() * W,
+                y:     Math.random() * H,
                 r:     Math.random() * 0.9 + 0.15,
                 base:  Math.random() * 0.45 + 0.08,
                 amp:   Math.random() * 0.18 + 0.04,
@@ -2704,15 +2801,14 @@
         lastDraw = t;
 
         const scrollY = window.__lenis?.scroll ?? window.scrollY ?? 0;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, W, H);
 
         /* Dentro da cabine as estrelas somem */
         const dim = 1 - (window.__cabinLevel || 0);
         if (dim > 0.01) {
             for (const s of stars) {
                 const o = (s.base + Math.sin(t * s.freq + s.phase) * s.amp) * dim;
-                const h = canvas.height;
-                const drawY = ((s.y - scrollY) % h + h) % h;
+                const drawY = ((s.y - scrollY) % H + H) % H;
                 ctx.beginPath();
                 ctx.arc(s.x, drawY, s.r, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255,255,255,${o.toFixed(3)})`;
@@ -2722,7 +2818,14 @@
         requestAnimationFrame(draw);
     }
 
-    window.addEventListener('resize', init);
+    /* No celular a barra de endereço muda a altura a cada rolagem: aí só
+       redimensiona e reescala as estrelas. Recria o céu só se a largura mudar. */
+    window.addEventListener('resize', () => {
+        if (window.innerWidth !== W) { init(); return; }
+        const prevH = H;
+        resize();
+        if (prevH) for (const s of stars) s.y *= H / prevH;
+    });
     init();
     requestAnimationFrame(draw);
 })();
@@ -2737,6 +2840,9 @@
 
     let activePanel = null;
     let activeClone = null;
+    /* listeners do player aberto (ex.: fullscreenchange no document) são
+       registrados com este signal e removidos todos juntos ao fechar */
+    let activeCtrl  = null;
 
     /* ── ícones SVG ── */
     const ic = {
@@ -2813,7 +2919,7 @@
 
         playBtn.addEventListener('click', e => {
             e.stopPropagation();
-            video.paused ? video.play() : video.pause();
+            video.paused ? video.play().catch(() => {}) : video.pause();
         });
 
         /* progresso — seek */
@@ -2874,7 +2980,7 @@
             if (!isLandscapePanel) {
                 fsBtn.innerHTML = document.fullscreenElement ? ic.fsExit : ic.fsEnter;
             }
-        });
+        }, { signal: activeCtrl?.signal });
 
         row.append(playBtn, timeEl, spacer, volBtn, volSlider, fsBtn);
         bar.append(progress, row);
@@ -2908,6 +3014,7 @@
     function expandPanel(panel) {
         if (activePanel) return;
         activePanel = panel;
+        activeCtrl  = new AbortController();
 
         const rect       = panel.getBoundingClientRect();
         const isPortrait = panel.classList.contains('work-vid-port');
@@ -2924,6 +3031,7 @@
         /* esconde play btn e tag no clone */
         clone.querySelector('.wv-play-btn')?.remove();
         clone.querySelector('.wv-tag')?.remove();
+        clone.querySelector('.wv-glow')?.remove();
         clone.querySelector('.wv-video')?.remove();
 
         /* vídeo dedicado para o clone — inserido após wv-bg */
@@ -2969,6 +3077,7 @@
         closeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
         closeBtn.addEventListener('click', e => { e.stopPropagation(); collapsePanel(); });
         clone.appendChild(closeBtn);
+        closeBtn.focus({ preventScroll: true });
 
         bindSwipeClose(clone);
 
@@ -2982,22 +3091,40 @@
         backdrop.classList.add('is-active');
         if (window.__lenis) window.__lenis.stop();
 
-        let tw, th;
-        if (isPortrait) {
-            /* limita também pela largura: em celular a altura sozinha
-               gerava um player mais largo que a tela */
-            th = Math.min(window.innerHeight * 0.88, 860, window.innerWidth * 0.92 * (16 / 9));
-            tw = th * (9 / 16);
+        /* vídeo horizontal no celular: ocupa a tela inteira, girado 90°
+           se o aparelho estiver em pé (sem depender de girar o celular) */
+        const phoneLand = !isPortrait && isPhone();
+        if (phoneLand) {
+            clone.classList.add('vv-rot');
+            window.addEventListener('resize', () => {
+                gsap.set(clone, phoneFit());
+            }, { signal: activeCtrl.signal });
+        }
+
+        let target;
+        if (phoneLand) {
+            target = phoneFit();
         } else {
-            tw = Math.min(window.innerWidth * 0.88, 1260);
-            th = tw * (9 / 16);
+            let tw, th;
+            if (isPortrait) {
+                /* limita também pela largura: em celular a altura sozinha
+                   gerava um player mais largo que a tela */
+                th = Math.min(window.innerHeight * 0.88, 860, window.innerWidth * 0.92 * (16 / 9));
+                tw = th * (9 / 16);
+            } else {
+                tw = Math.min(window.innerWidth * 0.88, 1260);
+                th = tw * (9 / 16);
+            }
+            target = {
+                top:  (window.innerHeight - th) / 2,
+                left: (window.innerWidth  - tw) / 2,
+                width: tw, height: th,
+                borderRadius: 18,
+            };
         }
 
         gsap.to(clone, {
-            top:  (window.innerHeight - th) / 2,
-            left: (window.innerWidth  - tw) / 2,
-            width: tw, height: th,
-            borderRadius: 18,
+            ...target,
             duration: 0.72,
             ease: 'expo.inOut',
             onComplete() {
@@ -3009,6 +3136,20 @@
         });
     }
 
+    /* celular = toque + tela pequena (tablet e desktop seguem o player normal) */
+    function isPhone() {
+        return matchMedia('(hover: none) and (pointer: coarse)').matches
+            && Math.min(window.innerWidth, window.innerHeight) < 600;
+    }
+
+    /* tela cheia: em pé, gira 90° e troca largura/altura; deitado, só preenche */
+    function phoneFit() {
+        const W = window.innerWidth, H = window.innerHeight;
+        return H > W
+            ? { top: (H - W) / 2, left: (W - H) / 2, width: H, height: W, rotation: 90, borderRadius: 0 }
+            : { top: 0, left: 0, width: W, height: H, rotation: 0, borderRadius: 0 };
+    }
+
     /* ── Arrastar para baixo fecha (touch) ──────────────────── */
     const SWIPE_CLOSE_PX = 110;      // distância que fecha
     const SWIPE_CLOSE_SPEED = 0.6;   // ou um gesto rápido (px/ms)
@@ -3016,7 +3157,7 @@
 
     function swipeStart(e) {
         if (!activeClone || e.touches.length !== 1) return;
-        if (activeClone.classList.contains('fs-rotated')) return;
+        if (activeClone.matches('.fs-rotated, .vv-rot')) return;
         if (e.target.closest?.('.vv-controls, .vv-close-btn')) return;
         swipe = { y0: e.touches[0].clientY, t0: performance.now(), dy: 0, moved: false };
     }
@@ -3061,6 +3202,9 @@
         const panel = activePanel;
         const clone = activeClone;
 
+        activeCtrl?.abort();
+        activeCtrl = null;
+
         /* pausa vídeo */
         clone.querySelector('.wv-video')?.pause?.();
 
@@ -3075,6 +3219,7 @@
             width: rect.width, height: rect.height,
             borderRadius: 14,
             y: 0,
+            rotation: 0,
             duration: 0.55,
             ease: 'expo.inOut',
             onComplete() {
@@ -3083,13 +3228,29 @@
                 activePanel = null;
                 activeClone = null;
                 if (window.__lenis) window.__lenis.start();
+                /* devolve o foco ao card (navegação por teclado) */
+                panel.focus({ preventScroll: true });
             },
         });
     }
 
     function initPanels() {
         document.querySelectorAll('.wv-panel').forEach(panel => {
+            /* card vira um botão acessível: foco por Tab, Enter/Espaço abre */
+            panel.setAttribute('role', 'button');
+            panel.setAttribute('tabindex', '0');
+            const label = panel.querySelector('img.wv-video')?.alt?.replace(/\s*thumbnail$/i, '');
+            if (!panel.hasAttribute('aria-label')) {
+                panel.setAttribute('aria-label', 'Play video' + (label ? ': ' + label : ''));
+            }
+
             panel.addEventListener('click', () => { if (!activePanel) expandPanel(panel); });
+            panel.addEventListener('keydown', e => {
+                if ((e.key === 'Enter' || e.key === ' ') && !activePanel) {
+                    e.preventDefault();
+                    expandPanel(panel);
+                }
+            });
         });
         /* mostra primeiro frame dos vídeos */
         document.querySelectorAll('.wv-video').forEach(v => {
@@ -3114,14 +3275,18 @@ document.querySelectorAll('a[data-scroll]').forEach(link => {
         const target = document.querySelector(link.getAttribute('href'));
         if (!target) return;
         const ease = t => 1 - Math.pow(1 - t, 4);
-        let offset = 0;
+        /* desconta a nav fixa, senão o título da seção fica atrás dela */
+        const nav = document.getElementById('site-nav');
+        const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+        let offset = -Math.max(0, navBottom - 16);
         if (link.getAttribute('href') === '#about') {
             offset = -(window.innerHeight / 2 - target.offsetHeight / 2);
         }
         if (window.__lenis) {
             window.__lenis.scrollTo(target, { duration: 1.4, easing: ease, offset });
         } else {
-            target.scrollIntoView({ behavior: 'smooth' });
+            const y = target.getBoundingClientRect().top + window.scrollY + offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
     });
 });

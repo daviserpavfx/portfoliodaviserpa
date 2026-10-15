@@ -1,1 +1,24 @@
 assets/videos/work-*.mp4
+
+# Tudo que está no repositório vai pro ar no Vercel: só entra o que o site usa.
+
+# Projetos do After Effects
+*.aep
+Adobe After Effects Auto-Save/
+
+# Configuração local de editor / ferramentas
+.claude/
+.vscode/
+
+# Restos de templates salvos em vendor/ — o site só usa o GSAP e a fonte Inter
+/vendor/gsap/index.html
+/vendor/gsap/assets/*
+!/vendor/gsap/assets/gsap_4f0dc5b47bd1.js
+/vendor/fonts/index.html
+/vendor/fonts/design-system.html
+/vendor/fonts/assets/*.js
+/vendor/fonts/assets/*.jpg
+/vendor/fonts/assets/*.webp
+
+# Original em alta da imagem de IA (o site usa as versões .webp/.jpg)
+/assets/images/ai-generated.png
